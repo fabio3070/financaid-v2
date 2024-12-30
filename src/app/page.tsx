@@ -14,7 +14,7 @@ export default function Home() {
           className="object-cover"
           quality={100}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20 z-10" />
+        <div className="absolute inset-x-0 top-0 h-[100vh] bg-gradient-to-b from-black/50 via-black/0 to-transparent z-10" />
       </div>
       <div className="relative">
         <Navbar />
