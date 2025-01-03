@@ -5,21 +5,16 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Form } from "@/components/ui/form"
+import { FormFieldInput } from "./FormFieldInput"
 
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
+  password: z.string().min(2, {
+    message: "Password must be at least 8 characters.",
+  })
 })
 
 export function LoginForm() {
@@ -27,6 +22,7 @@ export function LoginForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
+      password: ""
     },
   })
 
@@ -37,21 +33,15 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
+        <FormFieldInput
           name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="teste" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          description="This is username input"
+          control={form.control}
+        />
+        <FormFieldInput
+          name="password"
+          description="This is password input"
+          control={form.control}
         />
         <Button type="submit">Submit</Button>
       </form>
