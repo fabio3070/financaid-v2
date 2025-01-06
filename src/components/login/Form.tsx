@@ -43,7 +43,7 @@ export function LoginForm() {
           description="This is password input"
           control={form.control}
         />
-        <Button type="submit">Submit</Button>
+        <Button variant='shadow' type="submit">Submit</Button>
       </form>
     </Form>
   )

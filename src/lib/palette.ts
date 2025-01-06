@@ -11,5 +11,8 @@ export const palette = {
     800: '#262626',
     900: '#171717',
   },
+  text: {
+    'title': '#FFF1B9'
+  }
   // Add more color scales as needed
 } as const; 
