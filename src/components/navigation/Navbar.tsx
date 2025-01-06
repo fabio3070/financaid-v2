@@ -8,7 +8,7 @@ export default function Navbar() {
   const router = useRouter()
 
   return (
-    <nav className="w-full shadow-sm">
+    <nav className="w-full shadow-sm fixed inset-0">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Image
           src="/logo.png"

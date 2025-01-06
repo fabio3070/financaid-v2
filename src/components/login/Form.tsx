@@ -53,7 +53,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button variant='shadow' type="submit">Submit</Button>
       </form>
     </Form>
   )

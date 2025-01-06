@@ -6,15 +6,17 @@ export default function Home() {
   return (
     <main className="min-h-screen relative">
       <div className="fixed inset-0 -z-10">
-        <Image
-          src="/landing-image.jpg"
-          alt="Background"
-          fill
-          priority
-          className="object-cover"
-          quality={100}
-        />
-        <div className="absolute inset-x-0 top-0 h-[100vh] bg-gradient-to-b from-black/50 via-black/0 to-transparent z-10" />
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <Image
+            src="/landing-image.jpg"
+            alt="Background"
+            fill
+            priority
+            className="object-cover"
+            quality={100}
+          />
+          <div className="absolute inset-0 bg-black opacity-60" />
+        </div>
       </div>
       <div className="relative">
         <Navbar />
