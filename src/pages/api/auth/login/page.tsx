@@ -1,0 +1,1 @@
+// logica do supabase para pegar o utilizador

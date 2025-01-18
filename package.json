@@ -15,6 +15,7 @@
     "@radix-ui/react-slot": "^1.1.1",
     "@supabase/supabase-js": "^2.45.4",
     "@tanstack/react-query": "^5.59.15",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.453.0",
@@ -23,6 +24,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.54.2",
+    "swr": "^2.3.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
