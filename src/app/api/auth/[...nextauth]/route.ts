@@ -1,8 +1,9 @@
 import CredentialsProvider from "next-auth/providers/credentials"
-import NextAuth from "next-auth"
-import type { NextAuthOptions } from "next-auth/core"
+import NextAuth, { Session, User } from "next-auth"
+import type { AuthConfig } from "@auth/core"
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcrypt";
+import { JWT } from "next-auth/jwt";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -10,28 +11,31 @@ const supabase = createClient(
 );
 
 interface Credentials {
+  name: string;
   email: string;
   password: string;
 }
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthConfig = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'credentials',
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        name: { label: "Username", type: "text", placeholder: "Username" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
         if (!credentials) throw new Error("Missing credentials");
 
-        const { email, password } = credentials as Credentials;
+        const { name, email, password } = credentials as Credentials;
 
         const { data: user, error } = await supabase
         .from("Users")
         .select("*")
-        .eq("email", email)
+        .eq("email", name)
         .single();
+
+        console.log(user);
 
         if (error || !user) {
           throw new Error("No user found");
@@ -46,12 +50,29 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           name: user.name,
-          email: user.email,
-          image: user.image,
+          email: email
         };
       }
     })
-  ]
+  ],
+  pages: {
+    signIn: "/app/(auth)/login",
+  },
+  callbacks: {
+    async session({ session, token }: { session: Session; token: JWT }) {
+      if (token?.sub && session.user) {
+        //tem de haver uma sessão já iniciada
+        session.user.id = token.sub as string;
+      }
+      return session;
+    },
+    async jwt({ token, user }: { token: JWT; user?: User }) {
+      if (user) {
+        token.sub = user.id; // Include user ID in JWT
+      }
+      return token;
+    },
+  },
 }
 
 export const { auth } = NextAuth(authOptions)

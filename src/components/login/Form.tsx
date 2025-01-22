@@ -6,6 +6,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { FormFieldInput } from "./FormFieldInput"
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -27,24 +28,19 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
+      const result = await signIn("credentials", {
+        username: values.username,
+        password: values.password,
       });
+  
 
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      const data = await response.json();
-      console.log("Login successful:", data);
-      // Handle successful login (e.g., redirect)
+  
+      console.log("Login successful:", result);
+      // Redirect to a secure page after login (e.g., dashboard)
+      //window.location.href = "/dashboard";
     } catch (error) {
       console.error("Login error:", error);
-      // Handle error (e.g., show error message)
+      // Display an error message to the user
     }
   }
 
