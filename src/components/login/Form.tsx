@@ -28,11 +28,15 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      console.log(values);
       const result = await signIn("credentials", {
         username: values.username,
         password: values.password,
+        redirect: false
       });
-  
+      
+      console.log({ result });
+
 
   
       console.log("Login successful:", result);
