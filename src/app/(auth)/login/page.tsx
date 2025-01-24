@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/login/Form'
+import LoginForm  from '@/components/login/Form'
 import { palette } from '@/lib/palette'
 import React from 'react'
 

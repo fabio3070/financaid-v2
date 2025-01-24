@@ -1,12 +1,22 @@
 "use client"
-
-import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "sonner"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
 import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
-import { FormFieldInput } from "./FormFieldInput"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/ui/password-input"
 import { signIn } from "next-auth/react";
+import { inter } from "@/app/ui/fonts"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -15,53 +25,81 @@ const formSchema = z.object({
   password: z.string().min(2, {
     message: "Password must be at least 8 characters.",
   })
-})
+});
 
-export function LoginForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+export default function MyForm() {
+
+  const form = useForm < z.infer < typeof formSchema >> ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       password: ""
     },
   })
+  
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer < typeof formSchema > ) {
     try {
-      console.log(values);
       const result = await signIn("credentials", {
         username: values.username,
         password: values.password,
         redirect: false
       });
-      
-      console.log({ result });
 
-
-  
       console.log("Login successful:", result);
       // Redirect to a secure page after login (e.g., dashboard)
-      //window.location.href = "/dashboard";
+      window.location.href = "/dashboard";
+      toast(
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+        </pre>
+      );
     } catch (error) {
-      console.error("Login error:", error);
-      // Display an error message to the user
+      console.error("Form submission error", error);
+      toast.error("Failed to submit the form. Please try again.");
     }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormFieldInput
+      <form onSubmit={form.handleSubmit(onSubmit)} className={`${inter.className} space-y-8 max-w-3xl mx-auto py-10`}>
+        <FormField
+          control={form.control}
           name="username"
-          description="This is username input"
-          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input 
+                placeholder="Username"
+                type=""
+                {...field} />
+              </FormControl>
+              <FormDescription>This is your public display name.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <FormFieldInput
+        
+        <FormField
+          control={form.control}
           name="password"
-          description="This is password input"
-          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="Password" {...field} />
+              </FormControl>
+              <FormDescription>Enter your password.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <Button variant='shadow' type="submit">Submit</Button>
+        
+        <Button 
+        variant='shadow' 
+        type="submit"
+        size="lg">Submit</Button>
       </form>
     </Form>
   )

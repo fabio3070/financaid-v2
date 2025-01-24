@@ -10,7 +10,7 @@ const supabase = createClient(
 export const { auth, signIn, signOut, handlers:{GET, POST} } = NextAuth({
     debug: true,
     session: {
-      strategy: "jwt",
+      strategy: "jwt",// verificar o propósito
     },
     
   pages: {
@@ -40,8 +40,6 @@ export const { auth, signIn, signOut, handlers:{GET, POST} } = NextAuth({
             .eq("username", username)
             .single();
 
-            console.log(user);
-
             if (error || !user) {
               console.log(error);
               throw new Error("No user found");
@@ -49,7 +47,7 @@ export const { auth, signIn, signOut, handlers:{GET, POST} } = NextAuth({
             
             return {
               id: user.id,
-              name: user.name,
+              name: user.username,
               email: user.email
             };
         },
