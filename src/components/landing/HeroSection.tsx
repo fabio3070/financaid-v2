@@ -1,3 +1,5 @@
+"use client";
+
 import { jetbrains_mono, russo_one } from '@/app/ui/fonts';
 import { palette } from '@/lib/palette';
 import React from 'react';

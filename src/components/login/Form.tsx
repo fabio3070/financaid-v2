@@ -1,8 +1,7 @@
-"use client"
-import { toast } from "sonner"
+"use client";
+
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,48 +14,29 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
-import { signIn } from "next-auth/react";
 import { inter } from "@/app/ui/fonts"
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z.string().min(2, {
-    message: "Password must be at least 8 characters.",
-  })
-});
+import { loginFormSchema, LoginFormType } from "@/lib/schemas/auth"
+import { z } from "zod"
+import { credentialLogin } from "@/lib/actions/login/actions"
 
 export default function MyForm() {
 
-  const form = useForm < z.infer < typeof formSchema >> ({
-    resolver: zodResolver(formSchema),
+  const form = useForm < z.infer < typeof loginFormSchema >> ({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       username: "",
       password: ""
     },
   })
-  
 
-  async function onSubmit(values: z.infer < typeof formSchema > ) {
+  async function onSubmit(values: LoginFormType ) {
     try {
-      const result = await signIn("credentials", {
-        username: values.username,
-        password: values.password,
-        redirect: false
-      });
-
-      console.log("Login successful:", result);
-      // Redirect to a secure page after login (e.g., dashboard)
+      await credentialLogin(values);
       window.location.href = "/dashboard";
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
     } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      // Handle login error here
+      console.error("Login failed:", error);
+      // You might want to show an error message to the user
     }
   }
 
