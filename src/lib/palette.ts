@@ -9,10 +9,18 @@ export const palette = {
     600: '#525252',
     700: '#404040',
     800: '#262626',
-    900: '#171717',
+    900: '#121212',
+  },
+  background:{
+    'dark': '#121212',
+    'dark-grey': '#282828'
   },
   text: {
-    'title': '#FFF1B9'
+    'title': '#FFF1B9',
+    'form-label': '#f5f5f5' 
+  },
+  details: {
+    'green': '#005B41'
   }
   // Add more color scales as needed
 } as const; 

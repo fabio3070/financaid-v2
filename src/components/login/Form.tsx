@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import {
   Form,
   FormControl,
@@ -31,12 +31,16 @@ export default function MyForm() {
 
   async function onSubmit(values: LoginFormType ) {
     try {
-      await credentialLogin(values);
+      console.log("credentialLogin");
+      const result = await credentialLogin(values);
+
+      if(!result) {
+        //throw a error toast
+      }
       window.location.href = "/dashboard";
     } catch (error) {
       // Handle login error here
       console.error("Login failed:", error);
-      // You might want to show an error message to the user
     }
   }
 
@@ -75,11 +79,14 @@ export default function MyForm() {
             </FormItem>
           )}
         />
-        
-        <Button 
-        variant='shadow' 
-        type="submit"
-        size="lg">Submit</Button>
+        <div className="mt-10">
+          <Button 
+          variant='shadow' 
+          type="submit"
+          size="xlg"
+          darkBackground={true}
+          >Sign In</Button>
+        </div>
       </form>
     </Form>
   )

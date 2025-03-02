@@ -14,6 +14,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
+import { palette } from "@/lib/palette"
 
 const Form = FormProvider
 
@@ -97,6 +98,7 @@ const FormLabel = React.forwardRef<
       ref={ref}
       className={cn(error && "text-destructive", className)}
       htmlFor={formItemId}
+      style={{color: palette.text["form-label"]}}
       {...props}
     />
   )

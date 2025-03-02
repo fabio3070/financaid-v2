@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import { createClient } from "@supabase/supabase-js";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { UserService } from "./services/userService";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -34,37 +35,32 @@ export const {auth, handlers: {GET, POST}, signIn, signOut } = NextAuth({
                 return null;
             }
 
-            // tem que ser movido para um sitio onde possa ser escalavel(manutenção, mudado)
-            const { data: user, error } = await supabase
-            .from("Users")
-            .select("*")
-            .eq("username", username)
-            .single();
+            console.log("auth.ts: ", username, password);
 
-            if (error || !user) {
-              console.log(error);
-              throw new Error("No user found");
+            const user = await UserService.getUserByUsername(username);
+
+            console.log('user: ', user);
+
+            if (!user) {
+              throw new Error('Authentication failed, user not found');
             };
 
-            console.log(user);
+            console.log("✅ User found, authenticating...");
 
-            // Get token from Supabase(testar)
-            const { data, error: authError } = await supabase.auth.signInWithPassword({
-              email: user.email,
-              password: password,
-            });
+            const session = await UserService.authenticateUser(user.email, password);
 
-            if (authError || !data.session) {
-              throw new Error("Invalid credentials");
+            if (!session) {
+              console.error('Authentication failed, user not authorized');
+              return null;
             }
             
             return {
               id: user.id,
               name: user.username,
               email: user.email,
-              accessToken: data.session.access_token,
-              refreshToken: data.session.refresh_token,
-              expiresAt: data.session.expires_at,
+              accessToken: session.access_token,
+              refreshToken: session.refresh_token,
+              expiresAt: session.expires_at,
             };
         },
     })

@@ -12,6 +12,7 @@ export const credentialLogin = async (values: LoginFormType) => {
             redirect: false
         });
 
+        console.log('result: ', result);
         if (result?.error) {
             throw new Error(result.error);
         }
@@ -19,6 +20,7 @@ export const credentialLogin = async (values: LoginFormType) => {
         return result;
     } catch (error) {
         console.error("Form submission error", error);
+        throw error;
     }
 }
 
