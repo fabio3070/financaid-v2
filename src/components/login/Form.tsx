@@ -18,8 +18,12 @@ import { inter } from "@/app/ui/fonts"
 import { loginFormSchema, LoginFormType } from "@/lib/schemas/auth"
 import { z } from "zod"
 import { credentialLogin } from "@/lib/actions/login/actions"
+import { useState } from "react";
+import { toast } from "sonner"
+
 
 export default function MyForm() {
+  const [isLoading, setIsloading] = useState(false);
 
   const form = useForm < z.infer < typeof loginFormSchema >> ({
     resolver: zodResolver(loginFormSchema),
@@ -32,15 +36,19 @@ export default function MyForm() {
   async function onSubmit(values: LoginFormType ) {
     try {
       console.log("credentialLogin");
+      setIsloading(true);
       const result = await credentialLogin(values);
 
       if(!result) {
-        //throw a error toast
+        toast("Invalid login");
       }
       window.location.href = "/dashboard";
     } catch (error) {
       // Handle login error here
+      toast("Invalid login");
       console.error("Login failed:", error);
+    } finally {
+      setIsloading(false);
     }
   }
 
@@ -85,6 +93,7 @@ export default function MyForm() {
           type="submit"
           size="xlg"
           darkBackground={true}
+          isLoading={isLoading}
           >Sign In</Button>
         </div>
       </form>

@@ -20,7 +20,8 @@ export const palette = {
     'form-label': '#f5f5f5' 
   },
   details: {
-    'green': '#005B41'
+    'green': '#005B41',
+    'light-green': '#31AE26'
   }
   // Add more color scales as needed
 } as const; 

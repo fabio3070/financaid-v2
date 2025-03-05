@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Button } from '../ui/Button2'
+import { Button } from '../ui/Button'
 
 export default function Navbar() {
   const router = useRouter()
@@ -19,8 +19,8 @@ export default function Navbar() {
           className="w-[150px] h-auto max-w-[200px] sm:max-w-[100px] md:max-w-[150px]"
         />
         <div className='flex gap-8'>
-          <Button variant='shadow'>Sign Up</Button>
-          <Button variant='shadow' onClick={() => router.push('/login')}>Login</Button>
+          <Button variant='shadow' size="lg" onClick={() => router.push('/register')}>Sign Up</Button>
+          <Button variant='shadow' size="lg" onClick={() => router.push('/login')}>Login</Button>
         </div>
       </div>
     </nav>
