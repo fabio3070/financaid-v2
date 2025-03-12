@@ -13,20 +13,6 @@ export interface User {
 }
 
 export class UserService {
-  static async getUserByUsername(username: string): Promise<User | null> {
-    try{
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${username}`);
-      if(!response.ok) {
-        throw new Error(`User not found (Status: ${response.status})`)
-      };
-
-      return await response.json();
-    } catch(error){
-      console.error(error);
-      return null;
-    }
-  }
-
   static async authenticateUser(email: string, password: string) {
     console.log(email,password);
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -34,7 +20,7 @@ export class UserService {
       password,
     });
 
-    console.log("service data: ", data);
+    console.log("⚡ Response from Supabase:", { data, error });
 
     if (error || !data.session) {
       return null;

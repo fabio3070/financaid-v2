@@ -20,33 +20,33 @@ import { z } from "zod"
 import { credentialLogin } from "@/lib/actions/login/actions"
 import { useState } from "react";
 import { toast } from "sonner"
-
+import { useRouter } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export default function MyForm() {
   const [isLoading, setIsloading] = useState(false);
+  const router = useRouter();
 
   const form = useForm < z.infer < typeof loginFormSchema >> ({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: ""
     },
   })
 
   async function onSubmit(values: LoginFormType ) {
     try {
-      console.log("credentialLogin");
       setIsloading(true);
       const result = await credentialLogin(values);
 
       if(!result) {
         toast("Invalid login");
       }
-      window.location.href = "/dashboard";
+
+      window.location.replace("/dashboard");
     } catch (error) {
-      // Handle login error here
       toast("Invalid login");
-      console.error("Login failed:", error);
     } finally {
       setIsloading(false);
     }
@@ -57,17 +57,17 @@ export default function MyForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className={`${inter.className} space-y-8 max-w-3xl mx-auto py-10`}>
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input 
-                placeholder="Username"
+                placeholder="Email"
                 type=""
                 {...field} />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
+              <FormDescription>This is your account email.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
