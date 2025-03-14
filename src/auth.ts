@@ -12,8 +12,11 @@ export const {auth, handlers: {GET, POST}, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  pages: {
+    signIn: "/login",
+  },
   secret: process.env.NEXTAUTH_SECRET,
-  providers: [
+  providers: [  
     CredentialsProvider({
         name: "credentials",
         credentials: {
@@ -74,6 +77,7 @@ export const {auth, handlers: {GET, POST}, signIn, signOut } = NextAuth({
     },
     async session({ session, token }) {
       session.user.id = token.id as string;
+      session.user.email = token.email as string;
       session.accessToken = token.accessToken as string;
       session.expiresAt = token.expiresAt as number;
       return session;

@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export default function MyForm() {
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm < z.infer < typeof loginFormSchema >> ({
@@ -36,19 +36,22 @@ export default function MyForm() {
   })
 
   async function onSubmit(values: LoginFormType ) {
+    console.log("Begin Login...");
     try {
-      setIsloading(true);
+      setIsLoading(true);
       const result = await credentialLogin(values);
 
+      console.log("✅ Login sucessful!")
       if(!result) {
         toast("Invalid login");
+        return;
       }
 
       window.location.replace("/dashboard");
     } catch (error) {
       toast("Invalid login");
     } finally {
-      setIsloading(false);
+      setIsLoading(false);
     }
   }
 

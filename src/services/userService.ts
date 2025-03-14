@@ -8,7 +8,8 @@ const supabase = createClient(
 //should be global
 export interface User {
   id: string;
-  username: string;
+  first_name: string;
+  last_name: string;
   email: string;
 }
 
@@ -20,12 +21,11 @@ export class UserService {
       password,
     });
 
-    console.log("⚡ Response from Supabase:", { data, error });
-
     if (error || !data.session) {
       return null;
     }
 
+    console.log("✅ Authenticated User");
     return data.session;
   }
 } 
