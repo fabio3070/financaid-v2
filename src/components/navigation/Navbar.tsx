@@ -19,7 +19,7 @@ export default function Navbar() {
           className="w-[150px] h-auto max-w-[200px] sm:max-w-[100px] md:max-w-[150px]"
         />
         <div className='flex gap-8'>
-          <Button variant='shadow' size="lg" onClick={() => router.push('/dashboard')}>Sign Up</Button>
+          <Button variant='shadow' size="lg" onClick={() => router.push('/register')}>Sign Up</Button>
           <Button variant='shadow' size="lg" onClick={() => router.push('/login')}>Login</Button>
         </div>
       </div>
