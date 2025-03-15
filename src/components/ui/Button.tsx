@@ -14,15 +14,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded-md",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 rounded-md",
-        outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 rounded-md",
-        ghost: "hover:bg-accent hover:text-accent-foreground rounded-md",
-        link: "text-primary underline-offset-4 hover:underline rounded-md",
         shadow:  `w-[120px] font-medium h-12 px-6 border border-neutral-200 text-neutral-600 bg-neutral-50 [box-shadow:6px_6px_1px_var(--shadow-color)] active:translate-x-[4px] active:translate-y-[4px] active:[box-shadow:0px_0px_var(--shadow-color)]`,
+        reverse: `w-[120px] font-medium h-12 px-6 bg-[${palette.details["light-green"]}] [box-shadow:6px_6px_1px_var(--shadow-color)] active:translate-x-[4px] active:translate-y-[4px] active:[box-shadow:0px_0px_var(--shadow-color)]`,
         loading: "bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded-md cursor-wait"
       },
       size: {
@@ -56,12 +49,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         style={
           variant === 'shadow' 
-            ? { 
-                '--shadow-color': darkBackground 
-                  ? palette.details["light-green"] 
-                  : 'rgb(38 38 38)'
-              } as React.CSSProperties
-            : undefined
+          ? { 
+              '--shadow-color': darkBackground 
+                ? palette.details["light-green"] 
+                : 'rgb(38 38 38)'
+            } as React.CSSProperties
+          : variant === 'reverse' 
+          ?
+            { 
+              '--shadow-color': palette.neutral["50"],
+              backgroundColor: palette.details["light-green"],
+              color: palette.text['form-label']
+            } as React.CSSProperties
+          : undefined
         }
         disabled={isLoading}
         ref={ref}

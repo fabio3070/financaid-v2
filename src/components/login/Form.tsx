@@ -6,10 +6,8 @@ import { Button } from "@/components/ui/Button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -20,12 +18,9 @@ import { z } from "zod"
 import { credentialLogin } from "@/lib/actions/login/actions"
 import { useState } from "react";
 import { toast } from "sonner"
-import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
 
 export default function MyForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const form = useForm < z.infer < typeof loginFormSchema >> ({
     resolver: zodResolver(loginFormSchema),
@@ -49,6 +44,7 @@ export default function MyForm() {
 
       window.location.replace("/dashboard");
     } catch (error) {
+      console.log(error);
       toast("Invalid login");
     } finally {
       setIsLoading(false);
@@ -63,14 +59,12 @@ export default function MyForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input 
                 placeholder="Email"
                 type=""
                 {...field} />
               </FormControl>
-              <FormDescription>This is your account email.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -81,11 +75,9 @@ export default function MyForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
               <FormControl>
                 <PasswordInput placeholder="Password" {...field} />
               </FormControl>
-              <FormDescription>Enter your password.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
