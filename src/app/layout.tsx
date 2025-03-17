@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getSession, SessionProvider } from 'next-auth/react';
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
+import { palette } from '@/lib/palette';
 
 export const metadata: Metadata = {
   title: "Financaid",
@@ -18,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body >
+      <body style={{ backgroundColor: palette.background.dark}}>
         <SessionProvider session={session}>
           {children}
         </SessionProvider>
