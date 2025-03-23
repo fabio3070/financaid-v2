@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from "next";
-import { getSession, SessionProvider } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { palette } from '@/lib/palette';

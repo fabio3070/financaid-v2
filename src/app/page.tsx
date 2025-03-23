@@ -1,5 +1,5 @@
 import HeroSection from "@/components/landing/HeroSection";
-import Navbar from "@/components/navigation/Navbar";
+import Navbar from "@/components/navigation/LandingPageNavbar";
 import Image from "next/image";
 
 export default function Home() {
