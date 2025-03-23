@@ -1,14 +1,16 @@
 "use client"
 
 import React from 'react'
-import { useCurrentUser } from '@/hooks/use-current-user';
+//import { useCurrentUser } from '@/hooks/use-current-user';
+import AppNavBar from '@/components/navigation/AppNavBar';
 
 export default function Dashboard() {
-  const user = useCurrentUser();
-
-  if(user) return <div>Welcome {user?.email}</div>
+  //const user = useCurrentUser();
 
   return (
-    <div>page</div>
+    <main>
+      <AppNavBar />
+
+    </main>
   )
 }
