@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { palette } from '@/lib/palette';
+import AppNavBar from '@/components/navigation/AppNavBar';
 
 export const metadata: Metadata = {
   title: "Financaid",
@@ -19,8 +20,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+ 
       <body style={{ backgroundColor: palette.background.dark}}>
         <SessionProvider session={session}>
+          <AppNavBar />
           {children}
         </SessionProvider>
         <Toaster />

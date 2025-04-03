@@ -13,7 +13,9 @@ export const palette = {
   },
   background:{
     'dark': '#121212',
-    'dark-grey': '#282828'
+    'dark-grey': '#282828',
+    'total-balance-positive': '#005B41',
+    'total-balance-negative': '#FB3737'
   },
   text: {
     'title': '#FFF1B9',

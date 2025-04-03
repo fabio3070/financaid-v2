@@ -29,7 +29,7 @@ export default function AppNavBar() {
     const pathname = usePathname()
 
     return (
-        <nav className="w-full shadow-sm fixed inset-0 z-10">
+        <nav className="w-full shadow-sm inset-0 z-10">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                 <Image
                     src="/logo.png"
