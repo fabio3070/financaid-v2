@@ -1,8 +1,6 @@
-'use client'
-
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { palette } from '@/lib/palette';
-import React, { useState } from 'react';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { palette } from "@/lib/palette";
+import { useState } from "react";
 
 interface MonthOption {
     value: number;
@@ -64,7 +62,7 @@ const monthsToPick: MonthOption[] = [
     },
 ]
 
-const MonthSelectionBox: React.FC = () => {
+export const MonthSelectionBox: React.FC = () => {
     const [selectedMonth, setSelectedMonth] = useState<string>("0");
 
     return (
@@ -90,23 +88,4 @@ const MonthSelectionBox: React.FC = () => {
             </SelectContent>
         </Select>
     );
-}
-
-
-export default function TotalBalance(){
-    const [isNegativeBalance, setIsNegativeBalance] = useState(true);
-
-    return (
-        <section
-        style={
-            isNegativeBalance ? 
-            {backgroundColor: palette.background['total-balance-positive']} 
-            :
-            {backgroundColor: palette.background['total-balance-negative']} 
-        }
-        className='w-[480px] p-3 rounded-2xl'
-        >
-            <MonthSelectionBox />
-        </section>
-    )
-}
+};
