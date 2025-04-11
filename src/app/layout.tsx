@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { palette } from '@/lib/palette';
 import AppNavBar from '@/components/navigation/AppNavBar';
+import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider';
 
 export const metadata: Metadata = {
   title: "Financaid",
@@ -19,15 +20,16 @@ export default async function RootLayout({
   const session = await auth();
 
   return (
-    <html lang="en">
- 
-      <body style={{ backgroundColor: palette.background.dark}}>
-        <SessionProvider session={session}>
-          <AppNavBar />
-          {children}
-        </SessionProvider>
-        <Toaster />
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="en">
+        <body style={{ backgroundColor: palette.background.dark}}>
+          <SessionProvider session={session}>
+            {session && <AppNavBar />}
+            {children}
+          </SessionProvider>
+          <Toaster />
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }

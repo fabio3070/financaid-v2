@@ -1,7 +1,7 @@
 'use server';
 
 import { RegisterFormType } from "@/lib/schemas/register";
-import { supabase } from "@/supabaseClient";
+import { supabase } from "@/lib/supabaseClient";
 import { AuthResponse } from '@supabase/supabase-js';
 
 interface UserDetailsParams {
