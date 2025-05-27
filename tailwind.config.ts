@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 import forms from '@tailwindcss/forms';
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
     darkMode: ["class"],
@@ -51,7 +52,37 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+        neutral: {
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#121212',
+        },
+        custom: {
+          background: {
+            dark: '#121212',
+            'dark-grey': '#282828',
+            'total-balance-positive': '#005B41',
+            'total-balance-negative': '#FB3737'
+          },
+          text: {
+            title: '#FFF1B9',
+            'form-label': '#f5f5f5'
+          },
+          details: {
+            green: '#2A6C54',
+			red: '#B53939',
+            'light-green': '#31AE26',
+			'light-red': '#B53939'
+          }
+        }
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -60,7 +91,18 @@ const config: Config = {
   		}
   	}
   },
-  plugins: [animate, forms, require("tailwindcss-animate")],
+  plugins: [
+    animate, 
+    forms, 
+    require("tailwindcss-animate"),
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.center': {
+          '@apply flex items-center justify-center': {}
+        }
+      })
+    })
+  ],
 };
 
 export default config;

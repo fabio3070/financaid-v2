@@ -9,13 +9,7 @@ export default function TotalBalanceLabel({balance}: TotalBalanceProps) {
     console.log("balance: ", balance);
     return (
         <div>
-            <h1>Your balance: </h1>
-            {
-                balance ? 
-                (<p>{balance}€</p>)
-                :
-                (<p>N/A</p>)
-            }
+            <p className='text-custom-text-form-label text-4xl mb-8'>{balance ? balance : '1200'}€</p>
         </div>
     )
 }

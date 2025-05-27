@@ -68,7 +68,7 @@ export const MonthSelectionBox: React.FC = () => {
     return (
         <Select value={selectedMonth} onValueChange={setSelectedMonth}>
             <SelectTrigger 
-                className="w-[280px]" 
+                className="w-[180px]" 
                 style={{backgroundColor: palette.background['dark'], color: palette.text['form-label']}}
             >
                 <SelectValue placeholder="Select a month"/>
