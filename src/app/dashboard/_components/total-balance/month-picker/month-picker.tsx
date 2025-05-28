@@ -2,9 +2,14 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { palette } from "@/lib/palette";
 import { useState } from "react";
 
-interface MonthOption {
+type MonthOption = {
     value: number;
     label: string;
+}
+
+type MonthSelectionBoxProps = {
+    selectedMonth: string;
+    setSelectedMonth: (value: string) => void;
 }
 
 const monthsToPick: MonthOption[] = [
@@ -62,13 +67,12 @@ const monthsToPick: MonthOption[] = [
     },
 ]
 
-export const MonthSelectionBox: React.FC = () => {
-    const [selectedMonth, setSelectedMonth] = useState<string>("0");
+export const MonthSelectionBox: React.FC<MonthSelectionBoxProps> = ({ selectedMonth, setSelectedMonth }) => {
 
     return (
         <Select value={selectedMonth} onValueChange={setSelectedMonth}>
             <SelectTrigger 
-                className="w-[180px]" 
+                className="w-28 md:w-[180px]" 
                 style={{backgroundColor: palette.background['dark'], color: palette.text['form-label']}}
             >
                 <SelectValue placeholder="Select a month"/>

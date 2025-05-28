@@ -30,7 +30,7 @@ export default function AppNavBar() {
 
     return (
         <nav className="w-full shadow-sm inset-0 z-10">
-            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="nav-header">
                 <Image
                     src="/logo.png"
                     alt="Background"

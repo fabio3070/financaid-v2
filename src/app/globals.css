@@ -62,7 +62,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground container mx-auto px-4 py-4 justify-between items-center;
   }
   h1 {
     @apply text-2xl font-bold;
@@ -73,10 +73,13 @@
 }
 
 @layer components {
+  .nav-header {
+    @apply container mx-auto px-4 py-4 flex justify-between items-center;
+  }
   .divider {
     @apply w-full h-[1px] bg-custom-details-light-green;
   }
   .bullet-tag {
-    @apply rounded-full p-1 w-32;
+    @apply rounded-full p-1 w-24 md:w-32;
   }
 }
