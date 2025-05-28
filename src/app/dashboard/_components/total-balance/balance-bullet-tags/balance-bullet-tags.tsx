@@ -7,7 +7,7 @@ type BalanceBulletTagProps = {
 }
 export default function BalanceBulletTags({income, expenses}: BalanceBulletTagProps) {
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center' data-testid="balance-bullet-tags">
         <div className='mt-4 flex flex-col gap-2 w-1/2'>
             <label className='text-custom-text-form-label'>Expenses</label>
             <BulletTag value={-expenses} backgroundColor='bg-custom-details-red'/>
