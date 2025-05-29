@@ -65,10 +65,16 @@
     @apply bg-background text-foreground container mx-auto px-4 py-4 justify-between items-center;
   }
   h1 {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-bold text-custom-text-form-label;
+  }
+  h2 {
+    @apply text-xl font-bold text-custom-text-form-label;
+  }
+  p {
+    @apply text-base text-custom-text-form-label;
   }
   label {
-    @apply text-lg font-medium;
+    @apply text-lg font-medium text-custom-text-form-label;
   }
 }
 
@@ -81,5 +87,11 @@
   }
   .bullet-tag {
     @apply rounded-full p-1 w-24 md:w-32;
+  }
+  .expenses-list {
+    @apply list-item-bullet px-6 md:px-10 flex items-center justify-between;
+  }
+  .list-item-bullet {
+    @apply rounded-full bg-custom-background-dark-grey w-full md:w-[480px] h-16;
   }
 }

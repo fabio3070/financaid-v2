@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import TotalBalanceLabel from './total-balance-label/total-balance-label';
 import { MonthSelectionBox } from './month-picker/month-picker';
 import { useBalance } from '@/hooks/use-balance';
@@ -8,12 +8,17 @@ import { User } from 'next-auth';
 import BalanceBulletTags from './balance-bullet-tags/balance-bullet-tags';
 import TotalBalanceSkeleton from './skeleton';
 
+type TotalBalanceProps = {
+    user: User;
+    selectedMonth: string;
+    setSelectedMonth: (value: string) => void;
+}
+
 const checkIfBalanceNegative = (balance: number): boolean => {
     return balance < 0;
 }
 
-export default function TotalBalance({user}: {user: User}) {
-    const [selectedMonth, setSelectedMonth] = useState<string>("0");
+export default function TotalBalance({user, selectedMonth, setSelectedMonth}: TotalBalanceProps) {
     const { data, isLoading } = useBalance(user.id, selectedMonth);
     const { balance, expenses, income } = data || {};
     const isBalanceNegative = balance && checkIfBalanceNegative(balance) as boolean;

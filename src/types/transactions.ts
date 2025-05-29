@@ -24,6 +24,8 @@ export type FinanceState = {
     incomes: Income[];
     expenses: Expense[];
     balance: number;
+    isLoadingExpenses: boolean;
+    isLoadingIncome: boolean;
     totalIncome: () => number;
     totalExpense: () => number;
     setIncomes: (incomes: Income[]) => void;
@@ -32,5 +34,5 @@ export type FinanceState = {
     addExpense: (expense: Expense) => void;
     subscribeToChanges: () => void;
     fetchIncomes: () => Promise<void>;
-    fetchExpenses: () => Promise<void>;
+    fetchExpenses: (userId: string) => Promise<void>;
 };
