@@ -7,6 +7,8 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
   incomes: [],
   expenses: [],
   balance: 0,
+  isLoadingExpenses: true,
+  isLoadingIncome: true,
 
   // Derived values
   totalIncome: () => get().incomes.reduce((sum, i) => sum + i.value, 0),
@@ -64,22 +66,27 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
 
   // Data fetchers
   fetchIncomes: async () => {
+    set({ isLoadingIncome: true});
     const { data, error } = await supabase
       .from('income')
       .select('*')
-      .order('date', { ascending: false });
+      .order('created_at', { ascending: false });
 
     if (error) console.error('Error fetching incomes:', error);
     if (data) set({ incomes: data });
+    set({ isLoadingIncome: false});
   },
 
-  fetchExpenses: async () => {
+  fetchExpenses: async (userId: string) => {
+    set({ isLoadingExpenses: true });
     const { data, error } = await supabase
-      .from('expense')
+      .from('expenses')
       .select('*')
-      .order('date', { ascending: false });
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
 
     if (error) console.error('Error fetching expenses:', error);
     if (data) set({ expenses: data });
+    set({ isLoadingExpenses: false });
   },
 }));
