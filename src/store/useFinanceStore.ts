@@ -1,6 +1,7 @@
 import { FinanceState, Income } from '@/types/transactions';
 import { create } from 'zustand';
 import { supabase } from '@/lib/supabaseClient';
+import { getDateRange } from '@/utils/date';
 
 export const useFinanceStore = create<FinanceState>((set, get) => ({
   // Initial state
@@ -65,11 +66,16 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
   },
 
   // Data fetchers
-  fetchIncomes: async () => {
+  fetchIncomes: async (userId: string, selectedMonth: string) => {
+    const { beginDate, endDate } = getDateRange(selectedMonth);
     set({ isLoadingIncome: true});
+
     const { data, error } = await supabase
       .from('income')
       .select('*')
+      .eq('user_id', userId)
+      .filter('created_at', 'gte', `${beginDate}`)
+      .filter('created_at', 'lt', `${endDate}`)
       .order('created_at', { ascending: false });
 
     if (error) console.error('Error fetching incomes:', error);
@@ -77,12 +83,16 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
     set({ isLoadingIncome: false});
   },
 
-  fetchExpenses: async (userId: string) => {
+  fetchExpenses: async (userId: string, selectedMonth: string) => {
+    const { beginDate, endDate } = getDateRange(selectedMonth);
     set({ isLoadingExpenses: true });
+
     const { data, error } = await supabase
       .from('expenses')
       .select('*')
       .eq('user_id', userId)
+      .filter('created_at', 'gte', `${beginDate}`)
+      .filter('created_at', 'lt', `${endDate}`)
       .order('created_at', { ascending: false });
 
     if (error) console.error('Error fetching expenses:', error);

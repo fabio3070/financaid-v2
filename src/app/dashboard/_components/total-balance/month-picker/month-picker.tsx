@@ -2,7 +2,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { palette } from "@/lib/palette";
 import { useState } from "react";
 
-type MonthOption = {
+interface MonthOption {
     value: number;
     label: string;
 }

@@ -5,20 +5,20 @@ import ExpensesListSkeleton from './skeleton';
 
 type ExpensesProps = {
   user: User;
+  selectedMonth: string;
 }
 
-export default function Expenses({ user }: ExpensesProps) {
-  const { fetchExpenses, expenses, isLoadingExpenses, setExpenses } = useFinanceStore();
+export default function Expenses({ user, selectedMonth }: ExpensesProps) {
+  const { fetchExpenses, expenses, isLoadingExpenses } = useFinanceStore();
 
   useEffect(() => {
     if (user?.id) {
-      setExpenses([]); // Clear previous expenses
-      fetchExpenses(user.id);
+      fetchExpenses(user.id, selectedMonth);
     }
-  }, [user?.id, fetchExpenses, setExpenses]);
+  }, [user?.id, fetchExpenses, selectedMonth]);
 
   return (
-    <div>
+    <div className='w-6/12'>
       <h2>Expenses</h2>
       {isLoadingExpenses ? <ExpensesListSkeleton />
       :       

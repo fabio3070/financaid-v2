@@ -76,6 +76,10 @@
   label {
     @apply text-lg font-medium text-custom-text-form-label;
   }
+  /* Fix for Radix UI Select body padding issue */
+  body[data-scroll-locked] {
+    padding-right: 0 !important;
+  }
 }
 
 @layer components {
@@ -94,4 +98,14 @@
   .list-item-bullet {
     @apply rounded-full bg-custom-background-dark-grey w-full md:w-[480px] h-16;
   }
+}
+
+/* Prevent scroll lock */
+[data-radix-popper-content-wrapper] {
+  position: absolute !important;
+}
+
+body[data-scroll-locked] {
+  padding-right: 0 !important;
+  overflow: auto !important;
 }

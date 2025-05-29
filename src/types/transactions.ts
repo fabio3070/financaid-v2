@@ -33,6 +33,6 @@ export type FinanceState = {
     addIncome: (income: Income) => void;
     addExpense: (expense: Expense) => void;
     subscribeToChanges: () => void;
-    fetchIncomes: () => Promise<void>;
-    fetchExpenses: (userId: string) => Promise<void>;
+    fetchIncomes: (userId: string, selectedMonth: string) => Promise<void>;
+    fetchExpenses: (userId: string, selectedMonth: string) => Promise<void>;
 };

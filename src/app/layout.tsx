@@ -23,11 +23,13 @@ export default async function RootLayout({
     <ReactQueryClientProvider>
       <html lang="en">
         <body style={{ backgroundColor: palette.background.dark}}>
-          <SessionProvider session={session}>
-            {session && <AppNavBar />}
-            {children}
-          </SessionProvider>
-          <Toaster />
+          <div>
+            <SessionProvider session={session}>
+              {session && <AppNavBar />}
+              {children}
+            </SessionProvider>
+            <Toaster />
+          </div>
         </body>
       </html>
     </ReactQueryClientProvider>
