@@ -1,15 +1,13 @@
-import { FinanceState, Income } from '@/types/transactions';
+import { FinanceState } from '@/types/transactions';
 import { create } from 'zustand';
-import { supabase } from '@/lib/supabaseClient';
-import { getDateRange } from '@/utils/date';
 
 export const useFinanceStore = create<FinanceState>((set, get) => ({
-  // Initial state
   incomes: [],
   expenses: [],
   balance: 0,
   isLoadingExpenses: true,
   isLoadingIncome: true,
+  isLoadingBalance: true,
 
   // Derived values
   totalIncome: () => get().incomes.reduce((sum, i) => sum + i.value, 0),
@@ -17,86 +15,12 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
 
   setIncomes: (incomes) => set({ incomes }),
   setExpenses: (expenses) => set({ expenses }),
+  setBalance: (value: number) => set({ balance: value }),
+
+  setIsLoadingIncome: (loading) => set({ isLoadingIncome: loading }),
+  setIsLoadingExpenses: (loading) => set({ isLoadingExpenses: loading }),
+  setIsLoadingBalance: (loading) => set({ isLoadingBalance: loading }),
 
   addIncome: (income) => set((state) => ({ incomes: [...state.incomes, income] })),
   addExpense: (expense) => set((state) => ({ expenses: [...state.expenses, expense] })),
-
-  // Supabase realtime subscriptions
-  subscribeToChanges: () => {
-      const incomeChannel = supabase
-      .channel('income_changes')
-      .on(
-          'postgres_changes',
-          {
-              event: '*',
-              schema: 'public',
-              table: 'income',
-          },
-          (payload) => {
-          const eventType = payload.eventType;
-          const newRecord = payload.new as Income;
-
-          switch (eventType) {
-              case 'INSERT':
-              get().addIncome(newRecord);
-              break;
-              case 'UPDATE':
-              set((state) => ({
-                  incomes: state.incomes.map((i) => 
-                  i.id === newRecord.id ? newRecord : i
-                  ),
-              }));
-              break;
-              case 'DELETE':
-              set((state) => ({
-                  incomes: state.incomes.filter((i) => i.id !== payload.old.id),
-              }));
-              break;
-          }
-          }
-      )
-      .subscribe();
-
-      return () => {
-          supabase.removeChannel(incomeChannel);
-          //supabase.removeChannel(expenseChannel);
-      };
-
-      // Repeat similar channel for expenses...
-  },
-
-  // Data fetchers
-  fetchIncomes: async (userId: string, selectedMonth: string) => {
-    const { beginDate, endDate } = getDateRange(selectedMonth);
-    set({ isLoadingIncome: true});
-
-    const { data, error } = await supabase
-      .from('income')
-      .select('*')
-      .eq('user_id', userId)
-      .filter('created_at', 'gte', `${beginDate}`)
-      .filter('created_at', 'lt', `${endDate}`)
-      .order('created_at', { ascending: false });
-
-    if (error) console.error('Error fetching incomes:', error);
-    if (data) set({ incomes: data });
-    set({ isLoadingIncome: false});
-  },
-
-  fetchExpenses: async (userId: string, selectedMonth: string) => {
-    const { beginDate, endDate } = getDateRange(selectedMonth);
-    set({ isLoadingExpenses: true });
-
-    const { data, error } = await supabase
-      .from('expenses')
-      .select('*')
-      .eq('user_id', userId)
-      .filter('created_at', 'gte', `${beginDate}`)
-      .filter('created_at', 'lt', `${endDate}`)
-      .order('created_at', { ascending: false });
-
-    if (error) console.error('Error fetching expenses:', error);
-    if (data) set({ expenses: data });
-    set({ isLoadingExpenses: false });
-  },
 }));

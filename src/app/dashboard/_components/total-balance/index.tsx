@@ -3,10 +3,10 @@
 import React from 'react';
 import TotalBalanceLabel from './total-balance-label/total-balance-label';
 import { MonthSelectionBox } from './month-picker/month-picker';
-import { useBalance } from '@/hooks/use-balance';
 import { User } from 'next-auth';
 import BalanceBulletTags from './balance-bullet-tags/balance-bullet-tags';
 import TotalBalanceSkeleton from './skeleton';
+import { useFinanceStore } from '@/store/useFinanceStore';
 
 type TotalBalanceProps = {
     user: User;
@@ -18,14 +18,13 @@ const checkIfBalanceNegative = (balance: number): boolean => {
     return balance < 0;
 }
 
-export default function TotalBalance({user, selectedMonth, setSelectedMonth}: TotalBalanceProps) {
-    const { data, isLoading } = useBalance(user.id, selectedMonth);
-    const { balance, expenses, income } = data || {};
+export default function TotalBalance({selectedMonth, setSelectedMonth}: TotalBalanceProps) {
+    const {balance, totalExpense, totalIncome, isLoadingBalance} = useFinanceStore()
     const isBalanceNegative = balance && checkIfBalanceNegative(balance) as boolean;
 
     return (
         <>
-            {isLoading ? <TotalBalanceSkeleton /> 
+            {isLoadingBalance ? <TotalBalanceSkeleton /> 
             : 
             <section
                 className={`w-full md:w-[480px] p-6 rounded-2xl ${
@@ -40,7 +39,7 @@ export default function TotalBalance({user, selectedMonth, setSelectedMonth}: To
                 </div>
                 <TotalBalanceLabel balance={balance}/>
                 <div className='divider'></div>
-                <BalanceBulletTags expenses={expenses ?? 0} income={income ?? 0} />
+                <BalanceBulletTags expenses={totalExpense() ?? 0} income={totalIncome() ?? 0} />
             </section>
             }
         </>

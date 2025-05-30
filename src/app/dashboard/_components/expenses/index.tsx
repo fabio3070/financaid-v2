@@ -1,22 +1,11 @@
 import { useFinanceStore } from '@/store/useFinanceStore';
 import React, { useEffect } from 'react'
-import { User } from 'next-auth';
 import ExpensesListSkeleton from './skeleton';
 
-type ExpensesProps = {
-  user: User;
-  selectedMonth: string;
-}
+export default function Expenses() {
+  const {expenses, isLoadingExpenses} = useFinanceStore();
 
-export default function Expenses({ user, selectedMonth }: ExpensesProps) {
-  const { fetchExpenses, expenses, isLoadingExpenses } = useFinanceStore();
-
-  useEffect(() => {
-    if (user?.id) {
-      fetchExpenses(user.id, selectedMonth);
-    }
-  }, [user?.id, fetchExpenses, selectedMonth]);
-
+  useEffect(() => {console.log(expenses)}, [expenses]);
   return (
     <div className='w-6/12'>
       <h2>Expenses</h2>

@@ -1,21 +1,9 @@
 import { useFinanceStore } from '@/store/useFinanceStore';
-import React, { useEffect } from 'react'
-import { User } from 'next-auth';
+import React from 'react'
 import IncomeListSkeleton from './skeleton';
 
-type IncomeProps = {
-  user: User;
-  selectedMonth: string;
-}
-
-export default function Income({ user, selectedMonth }: IncomeProps) {
-  const { fetchIncomes, incomes, isLoadingIncome } = useFinanceStore();
-
-  useEffect(() => {
-    if (user?.id) {
-        fetchIncomes(user.id, selectedMonth);
-    }
-  }, [user?.id, fetchIncomes, selectedMonth]);
+export default function Income() {
+  const {incomes, isLoadingIncome} = useFinanceStore();
 
   return (
     <div>

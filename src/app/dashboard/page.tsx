@@ -1,22 +1,17 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import TotalBalance from './_components/total-balance/index'
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { useFinanceStore } from '@/store/useFinanceStore';
-import TotalBalanceSkeleton from './_components/total-balance/skeleton';
 import Expenses from './_components/expenses';
 import Income from './_components/income';
+import { useFetchFinanceData } from '@/hooks/use-finance-data';
 
 export default function Dashboard() {
   const user = useCurrentUser();
-  const { subscribeToChanges } = useFinanceStore();
-  const [selectedMonth, setSelectedMonth] = useState<string>("0");
+  const [selectedMonth, setSelectedMonth] = useState<string>("0");//Vai passar a ser estado global
 
-  useEffect(() => {
-    const unsubscribe = subscribeToChanges();
-    return unsubscribe;
-  }, [subscribeToChanges]);
+  useFetchFinanceData(user?.id, selectedMonth);
 
   if(!user) return <p>Error</p>
 
@@ -24,8 +19,8 @@ export default function Dashboard() {
     <main className='mt-8'>
       <TotalBalance user={user} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
       <section className='mt-16 flex'>
-        <Expenses user={user} selectedMonth={selectedMonth}/>
-        <Income user={user} selectedMonth={selectedMonth}/>
+        <Expenses />
+        <Income />
       </section>
     </main>
   )

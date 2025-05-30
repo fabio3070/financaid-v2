@@ -26,13 +26,20 @@ export type FinanceState = {
     balance: number;
     isLoadingExpenses: boolean;
     isLoadingIncome: boolean;
+    isLoadingBalance: boolean;
+    
     totalIncome: () => number;
     totalExpense: () => number;
+
     setIncomes: (incomes: Income[]) => void;
     setExpenses: (expenses: Expense[]) => void;
+    setBalance: (value: number) => void; 
+
     addIncome: (income: Income) => void;
     addExpense: (expense: Expense) => void;
-    subscribeToChanges: () => void;
-    fetchIncomes: (userId: string, selectedMonth: string) => Promise<void>;
-    fetchExpenses: (userId: string, selectedMonth: string) => Promise<void>;
-};
+
+    setIsLoadingIncome: (loading: boolean) => void;
+    setIsLoadingExpenses: (loading: boolean) => void;
+    setIsLoadingBalance: (loading: boolean) => void;
+  };
+  
