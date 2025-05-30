@@ -65,10 +65,10 @@
     @apply bg-background text-foreground container mx-auto px-4 py-4 justify-between items-center;
   }
   h1 {
-    @apply text-2xl font-bold text-custom-text-form-label;
+    @apply text-2xl text-custom-text-form-label;
   }
   h2 {
-    @apply text-xl font-bold text-custom-text-form-label;
+    @apply text-xl text-custom-text-form-label;
   }
   p {
     @apply text-base text-custom-text-form-label;
