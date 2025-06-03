@@ -4,7 +4,6 @@ import forms from '@tailwindcss/forms';
 import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
-    darkMode: ["class"],
     content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -67,20 +66,14 @@ const config: Config = {
         },
         custom: {
           background: {
-            dark: '#121212',
-            'dark-grey': '#282828',
-            'total-balance-positive': '#005B41',
-            'total-balance-negative': '#FB3737'
+			'total-balance-positive': 'hsl(var(--total-balance-positive))',
+            'total-balance-negative': 'hsl(var(--total-balance-negative))'
           },
-          text: {
-            title: '#FFF1B9',
-            'form-label': '#f5f5f5'
-          },
-          details: {
-            green: '#2A6C54',
-			red: '#B53939',
-            'light-green': '#31AE26',
-			'light-red': '#B53939'
+		  details: {
+            green: 'hsl(var(--detail-green))',
+            red: 'hsl(var(--detail-red))',
+            'light-green': 'hsl(var(--detail-light-green))',
+            'light-red': 'hsl(var(--detail-light-red))'
           }
         }
   		},
@@ -94,7 +87,6 @@ const config: Config = {
   plugins: [
     animate, 
     forms, 
-    require("tailwindcss-animate"),
     plugin(function({ addUtilities }) {
       addUtilities({
         '.center': {

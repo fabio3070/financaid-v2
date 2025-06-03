@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { SessionProvider } from 'next-auth/react';
 import { auth } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
-import { palette } from '@/lib/palette';
 import AppNavBar from '@/components/navigation/AppNavBar';
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider';
 
@@ -22,7 +21,7 @@ export default async function RootLayout({
   return (
     <ReactQueryClientProvider>
       <html lang="en">
-        <body style={{ backgroundColor: palette.background.dark}}>
+        <body>
           <div>
             <SessionProvider session={session}>
               {session && <AppNavBar />}
