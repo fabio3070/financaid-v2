@@ -1,7 +1,7 @@
 "use client"
 
 import { inter } from '@/app/ui/fonts'
-import LoginForm  from '@/components/login/Form'
+import LoginForm  from '@/components/forms/login/Form'
 import { Button } from '@/components/ui/Button'
 import Logo from '@/components/ui/logo'
 import { palette } from '@/lib/palette'

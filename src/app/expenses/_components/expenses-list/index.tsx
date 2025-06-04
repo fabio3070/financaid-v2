@@ -7,16 +7,18 @@ import { useFinanceStore } from '@/store/useFinanceStore';
 import { toISODate } from '@/utils/date';
 import { getPaymentStatusText } from '@/utils/payment_status';
 import { IconSquareRoundedPlus } from '@tabler/icons-react';
-import React from 'react'
+import React, { useState } from 'react'
+import ExpensesDrawer from '../expenses-drawer';
 
 export default function ExpensesTable() {
     const {expenses, isLoadingExpenses, selectedMonth, setSelectedMonth} = useFinanceStore();
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     // falta criar um loading skeleton
     return (
         <div data-slot="table-container" className='relative w-full overflow-x-auto mt-10'>
             <div className='flex justify-end mb-4 gap-2'>
-                <Button variant={'outline'}>
+                <Button variant={'outline'} onClick={() => setIsDrawerOpen(true)}>
                     <IconSquareRoundedPlus /> Add expense
                 </Button>
                 <MonthSelectionBox selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
@@ -44,6 +46,7 @@ export default function ExpensesTable() {
                     ))}
                 </TableBody>
             </Table>
+            <ExpensesDrawer isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} />
         </div>
     )
 }
