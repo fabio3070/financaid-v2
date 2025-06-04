@@ -1,15 +1,16 @@
 "use client"
 
-import React, { useState } from 'react'
+import React from 'react'
 import TotalBalance from './_components/total-balance/index'
 import { useCurrentUser } from '@/hooks/use-current-user';
 import Expenses from './_components/expenses';
 import Income from './_components/income';
 import { useFetchFinanceData } from '@/hooks/use-finance-data';
+import { useFinanceStore } from '@/store/useFinanceStore';
 
 export default function Dashboard() {
   const user = useCurrentUser();
-  const [selectedMonth, setSelectedMonth] = useState<string>("0");//Vai passar a ser estado global
+  const {selectedMonth, setSelectedMonth} = useFinanceStore();
 
   useFetchFinanceData(user?.id, selectedMonth);
 

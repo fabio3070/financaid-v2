@@ -20,15 +20,15 @@ export default async function RootLayout({
 
   return (
     <ReactQueryClientProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body>
-          <div>
-            <SessionProvider session={session}>
-              {session && <AppNavBar />}
-              {children}
-            </SessionProvider>
-            <Toaster />
-          </div>
+            <div>
+              <SessionProvider session={session}>
+                {session && <AppNavBar />}
+                {children}
+              </SessionProvider>
+              <Toaster />
+            </div>
         </body>
       </html>
     </ReactQueryClientProvider>

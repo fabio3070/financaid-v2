@@ -14,11 +14,13 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded-md",
+        outline:
+          "border rounded bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline rounded-md",
         nav: "text-foreground hover:text-foreground/60 [&.active-nav]:after:content-[''] [&.active-nav]:after:absolute [&.active-nav]:after:bottom-0 [&.active-nav]:after:left-0 [&.active-nav]:after:w-full [&.active-nav]:after:h-[1px] [&.active-nav]:after:bg-foreground",
         shadow:  `w-[120px] font-medium h-12 px-6 border border-neutral-200 text-neutral-600 bg-neutral-50 [box-shadow:6px_6px_1px_var(--shadow-color)] active:translate-x-[4px] active:translate-y-[4px] active:[box-shadow:0px_0px_var(--shadow-color)]`,
         reverse: `w-[120px] font-medium h-12 px-6 bg-[${palette.details["light-green"]}] [box-shadow:6px_6px_1px_var(--shadow-color)] active:translate-x-[4px] active:translate-y-[4px] active:[box-shadow:0px_0px_var(--shadow-color)]`,
-        loading: "bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded-md cursor-wait"
+        loading: "bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded-md cursor-wait",
       },
       size: {
         default: "h-9 px-4 py-2",

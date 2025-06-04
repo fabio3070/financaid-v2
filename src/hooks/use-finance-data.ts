@@ -7,6 +7,7 @@ export function useFetchFinanceData(userId: string | undefined, selectedMonth: s
     setIncomes, 
     setBalance, 
     setExpenses,
+    setIsExpensesInitialized,
     setIsLoadingIncome,
     setIsLoadingBalance,
     setIsLoadingExpenses
@@ -54,6 +55,8 @@ export function useFetchFinanceData(userId: string | undefined, selectedMonth: s
     if (incomeQuery.data && expensesQuery.data) {
       setIncomes(incomeQuery.data);
       setExpenses(expensesQuery.data);
+
+      setIsExpensesInitialized(true);
 
       const totalIncome = incomeQuery?.data?.reduce((sum: number, i: { value: number }) => sum + i.value, 0);
       const totalExpenses = expensesQuery?.data?.reduce((sum: number, e: { value: number }) => sum + e.value, 0);

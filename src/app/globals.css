@@ -28,6 +28,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --picker-background: 210, 15%, 50%, 0.15;
     --total-balance-positive: 164 100% 18%;
     --total-balance-negative: 0 96% 60%;
     --detail-green: 158 44% 30%;
@@ -60,6 +61,7 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --picker-background: 210, 15%, 50%, 0.15;
     --total-balance-positive: 164 100% 25%;
     --total-balance-negative: 0 96% 65%;
     --detail-green: 158 44% 35%;
@@ -97,7 +99,7 @@
     @apply container mx-auto px-4 py-4 flex justify-between items-center;
   }
   .divider {
-    @apply w-full h-[1px] bg-custom-details-light-green;
+    @apply w-full h-[1px] bg-border;
   }
   .bullet-tag {
     @apply rounded-full p-1 w-24 md:w-32;
@@ -106,7 +108,7 @@
     @apply list-item-bullet px-6 md:px-10 flex items-center justify-between;
   }
   .list-item-bullet {
-    @apply rounded-full bg-foreground w-full md:w-[480px] h-16;
+    @apply rounded-full bg-card w-full md:w-[480px] h-16;
   }
 }
 

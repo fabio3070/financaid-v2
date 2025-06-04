@@ -1,7 +1,17 @@
+"use client";
+
 import React from 'react'
 import ExpensesTable from './_components/expenses-list'
+import { useFetchFinanceData } from '@/hooks/use-finance-data';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { useFinanceStore } from '@/store/useFinanceStore';
 
-export default function page() {
+export default function Expenses() {
+  const user = useCurrentUser();
+  const {selectedMonth} = useFinanceStore();
+
+  useFetchFinanceData(user?.id, selectedMonth);
+
   return (
     <section className='mt-8'>
         <h1>Expenses</h1>

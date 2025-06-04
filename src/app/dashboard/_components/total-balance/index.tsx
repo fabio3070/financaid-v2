@@ -2,11 +2,12 @@
 
 import React from 'react';
 import TotalBalanceLabel from './total-balance-label/total-balance-label';
-import { MonthSelectionBox } from './month-picker/month-picker';
+
 import { User } from 'next-auth';
 import BalanceBulletTags from './balance-bullet-tags/balance-bullet-tags';
 import TotalBalanceSkeleton from './skeleton';
 import { useFinanceStore } from '@/store/useFinanceStore';
+import { MonthSelectionBox } from '@/components/ui/month-picker';
 
 type TotalBalanceProps = {
     user: User;
@@ -34,7 +35,7 @@ export default function TotalBalance({selectedMonth, setSelectedMonth}: TotalBal
                 }`}
             >
                 <div className='flex justify-between items-center'>
-                    <label className='text-custom-text-form-label'>Total balance:</label>
+                    <label>Total balance:</label>
                     <MonthSelectionBox selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
                 </div>
                 <TotalBalanceLabel balance={balance}/>

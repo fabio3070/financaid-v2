@@ -1,11 +1,10 @@
 import { useFinanceStore } from '@/store/useFinanceStore';
-import React, { useEffect } from 'react'
+import React from 'react'
 import ExpensesListSkeleton from './skeleton';
 
 export default function Expenses() {
   const {expenses, isLoadingExpenses} = useFinanceStore();
 
-  useEffect(() => {console.log(expenses)}, [expenses]);
   return (
     <div className='w-6/12'>
       <h2>Expenses</h2>
