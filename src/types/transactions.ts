@@ -53,6 +53,14 @@ export enum PaymentStatus {
     'On Going' = 1,
     Canceled = 2
 }
+
+export enum ExpenseTypes {
+    Subscription = 1,
+    Debt = 2,
+    Mortage = 3,
+    Groceries = 4,
+    Car = 5
+}
   
 export function isPaymentStatus(status: number): status is PaymentStatus {
     return Object.values(PaymentStatus).includes(status as PaymentStatus);

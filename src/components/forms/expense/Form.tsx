@@ -19,23 +19,25 @@ import { credentialLogin } from "@/lib/actions/login/actions"
 import { useState } from "react";
 import { toast } from "sonner"
 import { expenseFormSchema } from "@/lib/schemas/expense";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export default function ExpenseCreationForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const user = useCurrentUser();
 
   const form = useForm < z.infer < typeof expenseFormSchema >> ({
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(expenseFormSchema),
     defaultValues: {
       type: 0,
       value: 0,
       recurrency_type: "",
       payment_status: 0,
-      user_id: ""
+      user_id: user?.id
     },
   })
 
   async function onSubmit(values: LoginFormType ) {
-    console.log("Begin Login...");
+    console.log("Begin submitting expense...");
     try {
       setIsLoading(true);
       const result = await credentialLogin(values);
@@ -46,7 +48,6 @@ export default function ExpenseCreationForm() {
         return;
       }
 
-      window.location.replace("/dashboard");
     } catch (error) {
       console.log(error);
       toast("Invalid login");
@@ -60,7 +61,7 @@ export default function ExpenseCreationForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className={`${inter.className} space-y-8 max-w-3xl mx-auto py-10`}>
         <FormField
           control={form.control}
-          name="email"
+          name="type"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -73,14 +74,31 @@ export default function ExpenseCreationForm() {
             </FormItem>
           )}
         />
-        
         <FormField
           control={form.control}
-          name="password"
+          name="type"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <PasswordInput placeholder="Password" {...field} />
+                <Input 
+                placeholder="Email"
+                type=""
+                {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="value"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input 
+                placeholder="Value"
+                type="number"
+                {...field}/>
               </FormControl>
               <FormMessage />
             </FormItem>

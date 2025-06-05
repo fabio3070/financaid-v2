@@ -29,10 +29,10 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --picker-background: 210, 15%, 50%, 0.15;
-    --total-balance-positive: 164 100% 18%;
-    --total-balance-negative: 0 96% 60%;
-    --detail-green: 158 44% 30%;
-    --detail-red: 0 53% 47%;
+    --total-balance-positive: 145, 63%, 41%;
+    --total-balance-negative: 6, 78%, 58%;
+    --detail-green: 145, 46%, 66%;
+    --detail-red: 6, 69%, 75%;
     --detail-light-green: 118 64% 42%;
     --detail-light-red: 0 53% 47%;
   }
